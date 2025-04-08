@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<!-- PageFlip.js CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/page-flip/dist/page-flip.min.css" />
+
+<!-- PageFlip.js JS -->
+<script src="https://cdn.jsdelivr.net/npm/page-flip/dist/page-flip.browser.min.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>My Storybook</title>
@@ -9,54 +14,53 @@
     body {
       background-color: #fff8f0;
     }
-    .book-cover {
-      background: linear-gradient(135deg, #ffebcd, #ffe4e1);
-      color: #ff1493;
-      border: 4px solid #ffcc00;
-    }
-    .page {
-      display: none;
-    }
-    .page.active {
-      display: block;
-    }
   </style>
 </head>
 <body class="flex items-center justify-center min-h-screen p-4">
-  <div id="book" class="text-center">
-    <div id="cover" class="book-cover p-10 rounded-2xl shadow-xl cursor-pointer">
-      <h1 class="text-4xl font-bold">Welcome to My Storybook!</h1>
-      <p class="mt-4">Click to open and explore</p>
+  <!-- Hidden pages to be loaded by PageFlip -->
+  <div style="display: none;">
+    <div class="my-page">
+      <div class="bg-yellow-200 h-full flex items-center justify-center text-pink-600 text-xl font-bold p-4">
+        Welcome to My Storybook!
+      </div>
     </div>
-
-    <div id="page1" class="page mt-6 p-6 bg-white rounded-2xl shadow-xl max-w-md">
-      <h2 class="text-2xl font-semibold text-pink-500">About Me</h2>
-      <p class="mt-2 text-gray-700">Hi! I'm a children's author who loves creating fun, heartwarming stories for little readers. Thanks for visiting!</p>
-      <button onclick="showPage('page2')" class="mt-4 bg-yellow-400 text-pink-700 px-4 py-2 rounded">Next</button>
+    <div class="my-page">
+      <div class="bg-white p-4 text-center h-full">
+        <h2 class="text-pink-500 font-bold text-xl mb-2">About Me</h2>
+        <p class="text-gray-700">Hi! I'm a children's author who loves creating fun, heartwarming stories for little readers. Thanks for visiting!</p>
+      </div>
     </div>
-
-    <div id="page2" class="page mt-6 p-6 bg-white rounded-2xl shadow-xl max-w-md">
-      <h2 class="text-2xl font-semibold text-pink-500">My Books</h2>
-      <ul class="mt-2 text-gray-700">
-        <li><a href="#" class="text-blue-500 underline">Book 1 – Amazon Link</a></li>
-        <li><a href="#" class="text-blue-500 underline">Book 2 – Temu Link</a></li>
-      </ul>
-      <button onclick="showPage('page1')" class="mt-4 bg-yellow-400 text-pink-700 px-4 py-2 rounded">Back</button>
+    <div class="my-page">
+      <div class="bg-white p-4 text-center h-full">
+        <h2 class="text-pink-500 font-bold text-xl mb-2">My Books</h2>
+        <ul class="text-blue-600 underline space-y-2">
+          <li><a href="#">Book 1 – Amazon Link</a></li>
+          <li><a href="#">Book 2 – Temu Link</a></li>
+        </ul>
+      </div>
     </div>
   </div>
 
+  <!-- Flipbook Container -->
+  <div id="flipbook" class="w-[300px] h-[400px] mx-auto shadow-2xl"></div>
+
   <script>
-    const cover = document.getElementById('cover');
-    const pages = document.querySelectorAll('.page');
+    const flipBook = new St.PageFlip(
+      document.getElementById("flipbook"),
+      {
+        width: 300,
+        height: 400,
+        size: "fixed",
+        maxShadowOpacity: 0.5,
+        showCover: true,
+        mobileScrollSupport: false
+      }
+    );
 
-    function showPage(pageId) {
-      pages.forEach(p => p.classList.remove('active'));
-      document.getElementById(pageId).classList.add('active');
-    }
+    flipBook.loadFromHTML(document.querySelectorAll(".my-page"));
 
-    cover.addEventListener('click', () => {
-      cover.style.display = 'none';
-      showPage('page1');
+    flipBook.on("flip", (e) => {
+      console.log("Page turned to", e.data);
     });
   </script>
 </body>
