@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Storybook</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+  <style>
+    body {
+      background-color: #fff8f0;
+    }
+    .book-cover {
+      background: linear-gradient(135deg, #ffebcd, #ffe4e1);
+      color: #ff1493;
+      border: 4px solid #ffcc00;
+    }
+    .page {
+      display: none;
+    }
+    .page.active {
+      display: block;
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center min-h-screen p-4">
+  <div id="book" class="text-center">
+    <div id="cover" class="book-cover p-10 rounded-2xl shadow-xl cursor-pointer">
+      <h1 class="text-4xl font-bold">Welcome to My Storybook!</h1>
+      <p class="mt-4">Click to open and explore</p>
+    </div>
+
+    <div id="page1" class="page mt-6 p-6 bg-white rounded-2xl shadow-xl max-w-md">
+      <h2 class="text-2xl font-semibold text-pink-500">About Me</h2>
+      <p class="mt-2 text-gray-700">Hi! I'm a children's author who loves creating fun, heartwarming stories for little readers. Thanks for visiting!</p>
+      <button onclick="showPage('page2')" class="mt-4 bg-yellow-400 text-pink-700 px-4 py-2 rounded">Next</button>
+    </div>
+
+    <div id="page2" class="page mt-6 p-6 bg-white rounded-2xl shadow-xl max-w-md">
+      <h2 class="text-2xl font-semibold text-pink-500">My Books</h2>
+      <ul class="mt-2 text-gray-700">
+        <li><a href="#" class="text-blue-500 underline">Book 1 – Amazon Link</a></li>
+        <li><a href="#" class="text-blue-500 underline">Book 2 – Temu Link</a></li>
+      </ul>
+      <button onclick="showPage('page1')" class="mt-4 bg-yellow-400 text-pink-700 px-4 py-2 rounded">Back</button>
+    </div>
+  </div>
+
+  <script>
+    const cover = document.getElementById('cover');
+    const pages = document.querySelectorAll('.page');
+
+    function showPage(pageId) {
+      pages.forEach(p => p.classList.remove('active'));
+      document.getElementById(pageId).classList.add('active');
+    }
+
+    cover.addEventListener('click', () => {
+      cover.style.display = 'none';
+      showPage('page1');
+    });
+  </script>
+</body>
+</html>
