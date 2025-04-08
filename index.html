@@ -45,22 +45,24 @@
   <div id="flipbook" class="w-[300px] h-[400px] mx-auto shadow-2xl"></div>
 
   <script>
-    const flipBook = new PageFlip(
-      document.getElementById("flipbook"),
-      {
-        width: 300,
-        height: 400,
-        size: "fixed",
-        maxShadowOpacity: 0.5,
-        showCover: true,
-        mobileScrollSupport: false
-      }
-    );
+    document.addEventListener("DOMContentLoaded", function () {
+      const flipBook = new PageFlip(
+        document.getElementById("flipbook"),
+        {
+          width: 300,
+          height: 400,
+          size: "fixed",
+          maxShadowOpacity: 0.5,
+          showCover: true,
+          mobileScrollSupport: false
+        }
+      );
 
-    flipBook.loadFromHTML(document.querySelectorAll(".my-page"));
+      flipBook.loadFromHTML(document.querySelectorAll(".my-page"));
 
-    flipBook.on("flip", (e) => {
-      console.log("Page turned to", e.data);
+      flipBook.on("flip", (e) => {
+        console.log("Page turned to", e.data);
+      });
     });
   </script>
 </body>
